@@ -13,6 +13,7 @@
 
 <body>
     <div class="container">
+        <?php include 'navbar.php'; ?>
         <header>
             <h1><i class="fas fa-calculator"></i> Math Adventure <i class="fas fa-star"></i></h1>
             <p class="tagline">Learn Math Through Fun Games!</p>
@@ -87,14 +88,7 @@
                     </div>
                 </div>
 
-                <div class="nav-buttons">
-                    <a href="index.php" class="nav-btn reading">
-                        <i class="fas fa-book"></i> Reading Adventure
-                    </a>
-                    <a href="analytics.php" class="nav-btn analytics">
-                        <i class="fas fa-chart-bar"></i> View Analytics
-                    </a>
-                </div>
+
             </div>
 
             <!-- Right Panel - Game -->
