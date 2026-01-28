@@ -1,362 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Adventure - Interactive Math Games</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px dashed #ff9966;
-        }
-        
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
-            color: #ff5e62;
-            text-shadow: 2px 2px 0 #ffcc00;
-            margin-bottom: 10px;
-        }
-        
-        .tagline {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        
-        .db-status {
-            display: inline-block;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .db-connected {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #c3e6cb;
-        }
-        
-        .db-disconnected {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #f5c6cb;
-        }
-        
-        .game-area {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 20px;
-        }
-        
-        .left-panel {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            border: 3px solid #ff9966;
-        }
-        
-        .right-panel {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            border: 3px solid #36d1dc;
-        }
-        
-        .panel-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.3rem;
-            color: #ff5e62;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px dotted #ffcc00;
-        }
-        
-        .game-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .game-btn {
-            padding: 15px 10px;
-            background: #ff5e62;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Fredoka One', cursive;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .game-btn:hover {
-            background: #ff4757;
-            transform: translateY(-2px);
-        }
-        
-        .game-btn.active {
-            background: #ff9966;
-            box-shadow: 0 4px 0 #ff5e62;
-        }
-        
-        .difficulty-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .diff-btn {
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Fredoka One', cursive;
-            transition: all 0.3s;
-        }
-        
-        .difficulty-easy { background: #9bff9b; color: #2e7d32; }
-        .difficulty-medium { background: #ffec8b; color: #ff8f00; }
-        .difficulty-hard { background: #ffcccb; color: #d32f2f; }
-        .difficulty-expert { background: #c5c6ff; color: #303f9f; }
-        
-        .diff-btn.active {
-            transform: scale(1.05);
-            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-        }
-        
-        .stats {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border: 2px solid #ff9966;
-        }
-        
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .game-display {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            border: 3px dashed #ff9966;
-            margin-bottom: 20px;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .math-problem {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #ff5e62;
-            margin: 20px 0;
-            font-family: 'Fredoka One', cursive;
-            text-shadow: 2px 2px 0 #ffcc00;
-        }
-        
-        .answer-input-container {
-            margin: 30px 0;
-        }
-        
-        .answer-input {
-            padding: 15px;
-            font-size: 2rem;
-            border: 3px solid #ff5e62;
-            border-radius: 10px;
-            width: 250px;
-            text-align: center;
-            background: #fff9e6;
-        }
-        
-        .answer-input:focus {
-            outline: none;
-            border-color: #ff9966;
-            box-shadow: 0 0 10px rgba(255, 94, 98, 0.3);
-        }
-        
-        .feedback {
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .correct { background: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
-        .incorrect { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
-        
-        .controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .control-btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: white;
-        }
-        
-        .submit-btn { background: #36d1dc; }
-        .next-btn { background: #ff5e62; }
-        .reset-btn { background: #ffcc00; }
-        
-        .control-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .timer-container {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border: 2px solid #36d1dc;
-            text-align: center;
-        }
-        
-        .timer-text {
-            font-size: 1rem;
-            color: #36d1dc;
-            margin-bottom: 5px;
-        }
-        
-        .timer-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff5e62;
-            font-family: 'Fredoka One', cursive;
-        }
-        
-        .nav-buttons {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .nav-btn {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 10px 20px;
-            background: linear-gradient(145deg, #36d1dc, #5b86e5);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .nav-btn:hover {
-            transform: translateY(-3px);
-        }
-        
-        .nav-btn.reading {
-            background: linear-gradient(145deg, #5d8aa8, #3a6a8a);
-        }
-        
-        .nav-btn.analytics {
-            background: linear-gradient(145deg, #ff9966, #ff5e62);
-        }
-        
-        /* Additional Stats */
-        .additional-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(145deg, #ffcc00, #ff9966);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            color: white;
-        }
-        
-        .stat-card-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            font-family: 'Fredoka One', cursive;
-        }
-        
-        .stat-card-label {
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .game-area {
-                grid-template-columns: 1fr;
-            }
-            
-            .additional-stats {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .game-buttons,
-            .difficulty-buttons,
-            .additional-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .math-problem {
-                font-size: 2.5rem;
-            }
-            
-            .answer-input {
-                width: 200px;
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/math_adventure.css">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -366,7 +20,7 @@
                 <i class="fas fa-database"></i> Testing database connection...
             </div>
         </header>
-        
+
         <div class="game-area">
             <!-- Left Panel - Controls -->
             <div class="left-panel">
@@ -391,7 +45,7 @@
                         <i class="fas fa-sort-numeric-up"></i><br>Numbers
                     </button>
                 </div>
-                
+
                 <h2 class="panel-title"><i class="fas fa-trophy"></i> Difficulty Level</h2>
                 <div class="difficulty-buttons" id="difficultyButtons">
                     <button class="diff-btn difficulty-easy active" data-difficulty="easy">
@@ -407,12 +61,12 @@
                         <i class="fas fa-crown"></i> Expert
                     </button>
                 </div>
-                
+
                 <div class="timer-container">
                     <div class="timer-text">Time Remaining</div>
                     <div class="timer-value" id="timer">60</div>
                 </div>
-                
+
                 <div class="stats">
                     <h2 class="panel-title"><i class="fas fa-chart-line"></i> Game Stats</h2>
                     <div class="stat-row">
@@ -432,7 +86,7 @@
                         <span id="savedValue">0</span>
                     </div>
                 </div>
-                
+
                 <div class="nav-buttons">
                     <a href="index.php" class="nav-btn reading">
                         <i class="fas fa-book"></i> Reading Adventure
@@ -442,21 +96,21 @@
                     </a>
                 </div>
             </div>
-            
+
             <!-- Right Panel - Game -->
             <div class="right-panel">
                 <div class="game-display" id="gameDisplay">
                     <h2 id="gameQuestion">Solve the math problem:</h2>
                     <div class="math-problem" id="mathProblem">5 + 3 = ?</div>
-                    
+
                     <div class="answer-input-container">
                         <input type="number" class="answer-input" id="answerInput" placeholder="Enter answer" autofocus>
                     </div>
-                    
+
                     <div class="feedback" id="feedback">
                         Enter your answer and press Submit!
                     </div>
-                    
+
                     <div class="controls">
                         <button class="control-btn submit-btn" id="submitBtn">
                             <i class="fas fa-check"></i> Submit Answer
@@ -469,7 +123,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="additional-stats">
                     <div class="stat-card">
                         <div class="stat-card-value" id="totalQuestions">0</div>
@@ -495,7 +149,7 @@
     <script>
         // ================= CONFIGURATION =================
         const API_URL = 'api.php'; // Same directory
-        
+
         // ================= GAME STATE =================
         const gameState = {
             currentGame: 'addition',
@@ -550,7 +204,7 @@
                 console.log('Testing database connection...');
                 const response = await fetch(`${API_URL}?endpoint=test_connection`);
                 const data = await response.json();
-                
+
                 if (data.success) {
                     gameState.dbConnected = true;
                     dbStatusEl.className = 'db-status db-connected';
@@ -570,13 +224,13 @@
 
         async function startSession() {
             if (!gameState.dbConnected) return;
-            
+
             try {
                 const response = await fetch(`${API_URL}?endpoint=start_session`, {
                     method: 'POST'
                 });
                 const data = await response.json();
-                
+
                 if (data.success) {
                     gameState.sessionId = data.session_id;
                     sessionIdEl.textContent = gameState.sessionId;
@@ -592,7 +246,7 @@
                 console.log('Cannot save: Database not connected or no session');
                 return;
             }
-            
+
             try {
                 const data = {
                     session_id: gameState.sessionId,
@@ -603,9 +257,9 @@
                     time_taken: timeTaken,
                     score_earned: isCorrect ? difficultySettings[gameState.difficulty].points : 0
                 };
-                
+
                 console.log('Saving question:', data);
-                
+
                 const response = await fetch(`${API_URL}?endpoint=save_question`, {
                     method: 'POST',
                     headers: {
@@ -613,7 +267,7 @@
                     },
                     body: JSON.stringify(data)
                 });
-                
+
                 const result = await response.json();
                 if (result.success) {
                     gameState.savedCount++;
@@ -630,10 +284,10 @@
         // ================= GAME FUNCTIONS =================
         async function initGame() {
             console.log('Initializing Math Adventure...');
-            
+
             // Test database connection
             await testDBConnection();
-            
+
             // Set up event listeners
             gameBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -677,7 +331,7 @@
             generateProblem();
             startTimer();
             updateUI();
-            
+
             // Focus the input
             answerInputEl.focus();
         }
@@ -686,22 +340,22 @@
         function generateProblem() {
             const settings = difficultySettings[gameState.difficulty];
             const { min, max } = settings;
-            
+
             // Clear feedback
             feedbackEl.textContent = 'Enter your answer!';
             feedbackEl.className = 'feedback';
-            
+
             // Focus on input and clear it
             answerInputEl.focus();
             answerInputEl.value = '';
             answerInputEl.disabled = false;
-            
+
             // Record start time for this question
             gameState.startTime = Date.now();
-            
+
             let problem = {};
-            
-            switch(gameState.currentGame) {
+
+            switch (gameState.currentGame) {
                 case 'addition':
                     const a = getRandomInt(min, max);
                     const b = getRandomInt(min, max);
@@ -710,7 +364,7 @@
                         answer: a + b
                     };
                     break;
-                    
+
                 case 'subtraction':
                     let x = getRandomInt(min, max);
                     let y = getRandomInt(min, max);
@@ -720,7 +374,7 @@
                         answer: x - y
                     };
                     break;
-                    
+
                 case 'multiplication':
                     const m = getRandomInt(min, Math.floor(max / 5));
                     const n = getRandomInt(min, Math.floor(max / 5));
@@ -729,7 +383,7 @@
                         answer: m * n
                     };
                     break;
-                    
+
                 case 'division':
                     const divisor = getRandomInt(2, 10);
                     const quotient = getRandomInt(min, Math.floor(max / 5));
@@ -739,13 +393,13 @@
                         answer: quotient
                     };
                     break;
-                    
+
                 case 'mixed':
                     const operations = ['+', '-', '×', '÷'];
                     const op = operations[getRandomInt(0, operations.length - 1)];
-                    
+
                     let num1, num2, result;
-                    
+
                     if (op === '+') {
                         num1 = getRandomInt(min, max);
                         num2 = getRandomInt(min, max);
@@ -766,19 +420,19 @@
                         num2 = divisor2;
                         result = quotient2;
                     }
-                    
+
                     problem = {
                         question: `${num1} ${op} ${num2} = ?`,
                         answer: result
                     };
                     break;
-                    
+
                 case 'counting':
                     const problemType = getRandomInt(1, 3);
                     if (problemType === 1) {
                         const start = getRandomInt(min, max);
                         problem = {
-                            question: `${start}, ${start+1}, ${start+2}, ?`,
+                            question: `${start}, ${start + 1}, ${start + 2}, ?`,
                             answer: start + 3
                         };
                     } else if (problemType === 2) {
@@ -792,19 +446,19 @@
                         const countBy = [2, 5, 10][getRandomInt(0, 2)];
                         const startCount = getRandomInt(1, 10) * countBy;
                         problem = {
-                            question: `Count by ${countBy}s: ${startCount}, ${startCount+countBy}, ?`,
+                            question: `Count by ${countBy}s: ${startCount}, ${startCount + countBy}, ?`,
                             answer: startCount + (countBy * 2)
                         };
                     }
                     break;
-                    
+
                 default:
                     problem = {
                         question: `5 + 3 = ?`,
                         answer: 8
                     };
             }
-            
+
             gameState.currentProblem = problem;
             mathProblemEl.textContent = problem.question;
         }
@@ -813,34 +467,34 @@
         async function checkAnswer() {
             const userAnswer = parseFloat(answerInputEl.value);
             const correctAnswer = gameState.currentProblem.answer;
-            
+
             if (isNaN(userAnswer)) {
                 feedbackEl.textContent = 'Please enter a number!';
                 feedbackEl.className = 'feedback incorrect';
                 return;
             }
-            
+
             // Calculate time taken for this question
             let timeTaken = 0;
             if (gameState.startTime) {
                 timeTaken = (Date.now() - gameState.startTime) / 1000;
                 gameState.totalTime += timeTaken;
             }
-            
+
             gameState.totalQuestions++;
-            
+
             const isCorrect = Math.abs(userAnswer - correctAnswer) < 0.001;
-            
+
             // Save to database
             const word = `${gameState.currentProblem.question.replace('?', '')} ${correctAnswer}`;
             await saveQuestion(isCorrect, timeTaken, word);
-            
+
             if (isCorrect) {
                 const points = difficultySettings[gameState.difficulty].points;
                 gameState.score += points;
                 gameState.streak++;
                 gameState.correctAnswers++;
-                
+
                 feedbackEl.textContent = `Correct! +${points} points!`;
                 feedbackEl.className = 'feedback correct';
             } else {
@@ -848,12 +502,12 @@
                 feedbackEl.textContent = `Oops! The answer is ${correctAnswer}.`;
                 feedbackEl.className = 'feedback incorrect';
             }
-            
+
             updateUI();
-            
+
             // Disable input after answering
             answerInputEl.disabled = true;
-            
+
             // Auto-generate next problem after a delay
             setTimeout(() => {
                 if (gameState.isGameActive) {
@@ -869,18 +523,18 @@
             correctEl.textContent = `${gameState.correctAnswers}/${gameState.totalQuestions}`;
             savedEl.textContent = gameState.savedCount;
             totalQuestionsEl.textContent = gameState.totalQuestions;
-            
-            const accuracy = gameState.totalQuestions > 0 
-                ? Math.round((gameState.correctAnswers / gameState.totalQuestions) * 100) 
+
+            const accuracy = gameState.totalQuestions > 0
+                ? Math.round((gameState.correctAnswers / gameState.totalQuestions) * 100)
                 : 0;
             accuracyEl.textContent = `${accuracy}%`;
-            
+
             // Calculate average time per question
-            const avgTime = gameState.totalQuestions > 0 
+            const avgTime = gameState.totalQuestions > 0
                 ? (gameState.totalTime / gameState.totalQuestions).toFixed(1)
                 : 0;
             avgTimeEl.textContent = `${avgTime}s`;
-            
+
             sessionIdEl.textContent = gameState.sessionId || '-';
         }
 
@@ -889,21 +543,21 @@
             if (gameState.timerInterval) {
                 clearInterval(gameState.timerInterval);
             }
-            
+
             gameState.isGameActive = true;
             gameState.timer = difficultySettings[gameState.difficulty].time;
             timerEl.textContent = gameState.timer;
-            
+
             gameState.timerInterval = setInterval(() => {
                 gameState.timer--;
                 timerEl.textContent = gameState.timer;
-                
+
                 if (gameState.timer <= 10) {
                     timerEl.style.color = '#ff0000';
                 } else {
                     timerEl.style.color = '#ff5e62';
                 }
-                
+
                 if (gameState.timer <= 0) {
                     endGame();
                 }
@@ -914,10 +568,10 @@
         function endGame() {
             gameState.isGameActive = false;
             clearInterval(gameState.timerInterval);
-            
+
             feedbackEl.textContent = `Time's up! Final score: ${gameState.score}`;
             feedbackEl.className = 'feedback incorrect';
-            
+
             // Disable input and submit button
             answerInputEl.disabled = true;
             submitBtn.disabled = true;
@@ -930,26 +584,26 @@
             gameState.totalQuestions = 0;
             gameState.correctAnswers = 0;
             gameState.totalTime = 0;
-            
+
             // Reset timer color
             timerEl.style.color = '#ff5e62';
-            
+
             // Re-enable input and submit button
             answerInputEl.disabled = false;
             submitBtn.disabled = false;
-            
+
             // Reset timer
             startTimer();
-            
+
             // Generate new problem
             generateProblem();
-            
+
             // Update UI
             updateUI();
-            
+
             feedbackEl.textContent = 'New game started! Good luck!';
             feedbackEl.className = 'feedback';
-            
+
             // Focus input
             answerInputEl.focus();
         }
@@ -963,4 +617,5 @@
         window.addEventListener('DOMContentLoaded', initGame);
     </script>
 </body>
+
 </html>
