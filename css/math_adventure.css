@@ -1,0 +1,381 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Neue', cursive;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px dashed #ff9966;
+}
+
+h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: #ff5e62;
+    text-shadow: 2px 2px 0 #ffcc00;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.db-status {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.db-connected {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.db-disconnected {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+}
+
+.left-panel {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 3px solid #ff9966;
+}
+
+.right-panel {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 3px solid #36d1dc;
+}
+
+.panel-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: #ff5e62;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px dotted #ffcc00;
+}
+
+.game-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.game-btn {
+    padding: 15px 10px;
+    background: #ff5e62;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.game-btn:hover {
+    background: #ff4757;
+    transform: translateY(-2px);
+}
+
+.game-btn.active {
+    background: #ff9966;
+    box-shadow: 0 4px 0 #ff5e62;
+}
+
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.diff-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    transition: all 0.3s;
+}
+
+.difficulty-easy {
+    background: #9bff9b;
+    color: #2e7d32;
+}
+
+.difficulty-medium {
+    background: #ffec8b;
+    color: #ff8f00;
+}
+
+.difficulty-hard {
+    background: #ffcccb;
+    color: #d32f2f;
+}
+
+.difficulty-expert {
+    background: #c5c6ff;
+    color: #303f9f;
+}
+
+.diff-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.stats {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 2px solid #ff9966;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.game-display {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    border: 3px dashed #ff9966;
+    margin-bottom: 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.math-problem {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ff5e62;
+    margin: 20px 0;
+    font-family: 'Fredoka One', cursive;
+    text-shadow: 2px 2px 0 #ffcc00;
+}
+
+.answer-input-container {
+    margin: 30px 0;
+}
+
+.answer-input {
+    padding: 15px;
+    font-size: 2rem;
+    border: 3px solid #ff5e62;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    background: #fff9e6;
+}
+
+.answer-input:focus {
+    outline: none;
+    border-color: #ff9966;
+    box-shadow: 0 0 10px rgba(255, 94, 98, 0.3);
+}
+
+.feedback {
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.correct {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.control-btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: white;
+}
+
+.submit-btn {
+    background: #36d1dc;
+}
+
+.next-btn {
+    background: #ff5e62;
+}
+
+.reset-btn {
+    background: #ffcc00;
+}
+
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.timer-container {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 2px solid #36d1dc;
+    text-align: center;
+}
+
+.timer-text {
+    font-size: 1rem;
+    color: #36d1dc;
+    margin-bottom: 5px;
+}
+
+.timer-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff5e62;
+    font-family: 'Fredoka One', cursive;
+}
+
+.nav-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.nav-btn {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #36d1dc, #5b86e5);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px);
+}
+
+.nav-btn.reading {
+    background: linear-gradient(145deg, #5d8aa8, #3a6a8a);
+}
+
+.nav-btn.analytics {
+    background: linear-gradient(145deg, #ff9966, #ff5e62);
+}
+
+/* Additional Stats */
+.additional-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: linear-gradient(145deg, #ffcc00, #ff9966);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    color: white;
+}
+
+.stat-card-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: 'Fredoka One', cursive;
+}
+
+.stat-card-label {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+
+    .additional-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .game-buttons,
+    .difficulty-buttons,
+    .additional-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .math-problem {
+        font-size: 2.5rem;
+    }
+
+    .answer-input {
+        width: 200px;
+        font-size: 1.5rem;
+    }
+}

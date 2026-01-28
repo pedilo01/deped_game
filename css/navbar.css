@@ -1,0 +1,80 @@
+/* Navbar Styles */
+.main-navbar {
+    background: white;
+    padding: 15px 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #e1e8ed;
+}
+
+.nav-brand {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: #5d8aa8;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-brand i {
+    color: #ff9966;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-item {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    color: #666;
+    transition: all 0.3s;
+    font-family: 'Fredoka One', cursive;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-item:hover {
+    background: #f0f8ff;
+    color: #5d8aa8;
+    transform: translateY(-2px);
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, #5d8aa8, #3a6a8a);
+    color: white;
+    box-shadow: 0 4px 10px rgba(93, 138, 168, 0.3);
+}
+
+.nav-item.math.active {
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
+    box-shadow: 0 4px 10px rgba(255, 94, 98, 0.3);
+}
+
+.nav-item.analytics.active {
+    background: linear-gradient(135deg, #ffcc00, #ffba00);
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .main-navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
